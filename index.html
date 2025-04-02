@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Become a Service Provider - Sarathi</title>
+    <!-- Load style.css first -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Load serviceProvider.css after to override needed styles -->
     <link rel="stylesheet" href="assets/css/serviceProvider.css">
 </head>
 <body>
-    <!-- Intro Animation (matching homepage) -->
     <div class="intro-container">
         <div class="intro-text">Sarathi</div>
     </div>
-
-    <!-- Header (matching homepage) -->
     <header>
         <a href="index.html" class="header-a"><h1>Sarathi</h1></a>
         <nav>
@@ -22,16 +22,15 @@
                 <span class="bar"></span>
             </div>
             <ul id="nav-links">
-                <li><a href="index.html#home">Home</a></li>   
-                <li><a href="index.html#services">Services</a></li>
-                <li><a href="index.html#booking">Book Now</a></li>
-                <li><a href="index.html#about">About Us</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="#home">Home</a></li>   
+                <li><a href="#services">Services</a></li>
+                <li><a href="#booking">Book Now</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
                 <li><a href="userChoice.html" class="login-button">Login</a></li>
             </ul>
         </nav>
     </header>
-
     <main>
         <!-- Hero Section -->
         <section class="provider-hero">
@@ -68,14 +67,56 @@
                                     <option value="" disabled selected>Select your area</option>
                                     <option value="tinkune">Tinkune</option>
                                     <option value="baluwatar">Baluwatar</option>
-                                    <option value="baneshwor">Baneshwor</option>
-                                    <option value="chabahil">Chabahil</option>
-                                    <option value="thamel">Thamel</option>
-                                    <option value="naxal">Naxal</option>
-                                    <option value="koteshwor">Koteshwor</option>
-                                    <option value="maharajgunj">Maharajgunj</option>
-                                    <option value="kalanki">Kalanki</option>
-                                    <option value="other">Other Areas</option>
+<option value="baneshwor">Baneshwor</option>
+<option value="chabahil">Chabahil</option>
+<option value="dilli_bazaar">Dilli Bazaar</option>
+<option value="gairidhara">Gairidhara</option>
+<option value="gyaneshwar">Gyaneshwar</option>
+<option value="kalimati">Kalimati</option>
+<option value="lazimpat">Lazimpat</option>
+<option value="maru">Maru</option>
+<option value="naxal">Naxal</option>
+<option value="samakhushi">Samakhushi</option>
+<option value="sinamangal">Sinamangal</option>
+<option value="swayambhu">Swayambhu</option>
+<option value="thamel">Thamel</option>
+<option value="balaju">Balaju</option>
+<option value="maharajgunj">Maharajgunj</option>
+<option value="banasthali">Banasthali</option>
+<option value="nayabazar">Nayabazar</option>
+<option value="shorakhutte">Shorakhutte</option>
+<option value="lainchaur">Lainchaur</option>
+<option value="new_road">New Road</option>
+<option value="dallu">Dallu</option>
+<option value="chhauni">Chhauni</option>
+<option value="kalanki">Kalanki</option>
+<option value="teku">Teku</option>
+<option value="tripureshwor">Tripureshwor</option>
+<option value="kuleshwor">Kuleshwor</option>
+<option value="asan">Asan</option>
+<option value="thapathali">Thapathali</option>
+<option value="maitighar">Maitighar</option>
+<option value="tinkune">Tinkune</option>
+<option value="koteshwor">Koteshwor</option>
+<option value="bagbazar">Bagbazar</option>
+<option value="anamnagar">Anamnagar</option>
+<option value="kamaladi">Kamaladi</option>
+<option value="hattisar">Hattisar</option>
+<option value="durbarmarg">Durbarmarg</option>
+<option value="chandol">Chandol</option>
+<option value="bansbari">Bansbari</option>
+<option value="dhumbarahi">Dhumbarahi</option>
+<option value="sukedhara">Sukedhara</option>
+<option value="boudha">Boudha</option>
+<option value="gaushala">Gaushala</option>
+<option value="handigaun">Handigaun</option>
+<option value="budhanilkantha">Budhanilkantha</option>
+<option value="bhaisepati">Bhaisepati</option>
+<option value="jhamsikhel">Jhamsikhel (Jhamel)</option>
+<option value="golfutar">Golfutar</option>
+<option value="balkot">Balkot</option>
+<option value="taukhel">Taukhel</option>
+
                                 </select>
                             </div>
 
@@ -224,13 +265,12 @@
             </div>
         </section>
 
-        <!-- Apply Now Section -->
         <section id="apply-now" class="apply-now">
             <div class="container">
                 <h2>Ready to join Sarathi?</h2>
                 <p>Complete the application below to get started as a service provider</p>
                 
-                <form class="apply-form">
+                <form class="apply-now-form">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="full-name">Full Name</label>

@@ -23,6 +23,14 @@
     --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
+/* Make all images responsive by default */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+
 body {
     background-color: var(--light);
     color: var(--dark);
@@ -88,7 +96,7 @@ a {
     }
 }
 
-/* Modern Header (matching homepage) */
+/* Modern Header */
 header {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
@@ -122,6 +130,7 @@ header h1 {
     color: transparent;
     transition: var(--transition);
 }
+
 
 /* Enhanced Navigation (matching homepage) */
 nav ul {
@@ -178,38 +187,41 @@ nav .login-button:hover {
     box-shadow: 0 7px 15px rgba(255, 102, 0, 0.4);
 }
 
-/* Mobile Menu Toggle (matching homepage) */
+/* Mobile Menu Toggle */
 .menu-toggle {
-    display: none;
+    display: none; /* Hidden by default on larger screens */
     flex-direction: column;
     justify-content: space-between;
     height: 20px;
+    width: 25px;
     cursor: pointer;
     z-index: 1001;
+    position: relative;
 }
 
 .bar {
-    width: 25px;
+    display: block;
+    width: 100%; /* Use 100% of parent width */
     height: 3px;
     background-color: var(--primary);
     border-radius: 3px;
     transition: var(--transition);
+    position: absolute; /* Position bars within the toggle */
+}
+
+.bar:nth-child(1) {
+    top: 0;
+}
+
+.bar:nth-child(2) {
+    top: calc(50% - 1.5px); /* Center the middle bar */
+}
+
+.bar:nth-child(3) {
+    bottom: 0;
 }
 
 /* Provider Hero Section */
-.provider-hero {
-    min-height: 70vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 100px 20px;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-                url('https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') center/cover;
-    color: white;
-    text-align: center;
-    margin-top: 80px;
-}
-
 .provider-hero-content {
     max-width: 800px;
 }
@@ -369,21 +381,61 @@ nav .login-button:hover {
 .range-container input[type="range"] {
     width: 100%;
     -webkit-appearance: none;
+    appearance: none;
     height: 8px;
-    border-radius: 4px;
-    background: #e5e7eb;
+    background: transparent;
     outline: none;
+    cursor: pointer;
+    border: none;
 }
 
+/* Style the track (the bar) */
+.range-container input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    border: none;
+}
+
+.range-container input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    background: #e5e7eb;
+    border-radius: 4px;
+    border: none;
+}
+
+/* Style the thumb (the circle) */
 .range-container input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
+    margin-top: -8px;
     width: 24px;
     height: 24px;
-    border-radius: 50%;
     background: var(--primary);
+    border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(255, 102, 0, 0.3);
+}
+
+.range-container input[type="range"]::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    background: var(--primary);
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 6px rgba(255, 102, 0, 0.3);
+}
+
+/* Focus styles (optional but good for accessibility) */
+.range-container input[type="range"]:focus::-webkit-slider-thumb {
+    box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.2);
+}
+
+.range-container input[type="range"]:focus::-moz-range-thumb {
+    box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.2);
 }
 
 .range-value {
@@ -510,33 +562,43 @@ nav .login-button:hover {
 
 #apply-now .container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     gap: 50px;
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .apply-now-content {
-    flex: 1;
+    width: 100%;
+    text-align: center;
 }
 
-.apply-now-content h2 {
+.apply-now h2 {
     font-size: 36px;
     font-weight: 700;
     margin-bottom: 15px;
     color: var(--dark);
 }
 
-.apply-now-content p {
+.apply-now p {
     font-size: 18px;
     color: var(--gray);
     margin-bottom: 30px;
 }
 
 .apply-now-form {
-    flex: 1;
+    width: 100%;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
 }
 
 .form-group {
+    flex: 1;
     margin-bottom: 25px;
 }
 
@@ -547,40 +609,41 @@ nav .login-button:hover {
     color: var(--dark);
 }
 
-.form-group select, .form-group input[type="text"] {
+.form-group input, .form-group select, .form-group textarea {
     width: 100%;
-    padding: 15px 20px;
+    padding: 15px;
     border: 1px solid #e5e7eb;
     border-radius: 10px;
     font-size: 16px;
-    transition: var(--transition);
     background-color: #f9fafb;
+    transition: 0.3s ease-in-out;
 }
 
-.form-group select:focus, .form-group input[type="text"]:focus {
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
     outline: none;
     border-color: var(--primary);
     box-shadow: 0 0 0 3px rgba(255, 102, 0, 0.15);
 }
 
-.apply-now-form button {
-    width: 100%;
-    background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-    color: white;
-    font-weight: 600;
-    padding: 15px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    transition: var(--transition);
-    box-shadow: 0 5px 15px rgba(255, 102, 0, 0.2);
-    font-size: 16px;
+.submit-btn {
+    position: relative;
+    overflow: hidden;
 }
 
-.apply-now-form button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(255, 102, 0, 0.3);
-}   
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.submit-btn:hover::before {
+    left: 100%;
+}
 
 /* Footer Section */
 footer {
@@ -637,6 +700,130 @@ footer {
 }
 
 /* Responsive Styles */
+
+/* Mobile Menu Toggle */
+.menu-toggle {
+    display: none; /* Hidden by default on larger screens */
+    flex-direction: column;
+    justify-content: space-between;
+    height: 20px;
+    width: 25px;
+    cursor: pointer;
+    z-index: 1001;
+    position: relative;
+}
+
+.bar {
+    display: block;
+    width: 100%; /* Use 100% of parent width */
+    height: 3px;
+    background-color: var(--primary);
+    border-radius: 3px;
+    transition: var(--transition);
+    position: absolute; /* Position bars within the toggle */
+}
+
+.bar:nth-child(1) {
+    top: 0;
+}
+
+.bar:nth-child(2) {
+    top: calc(50% - 1.5px); /* Center the middle bar */
+}
+
+.bar:nth-child(3) {
+    bottom: 0;
+}
+
+/* Media Queries */
+
+@media (max-width: 950px) {
+    /* Show the menu toggle button */
+    .menu-toggle {
+        display: flex; /* Override the default display:none - removed !important */
+    }
+    
+    /* Ensure nav is positioned correctly if needed */
+    nav {
+        position: relative; 
+    }
+    
+    /* Navigation Links Styling for Mobile */
+    #nav-links {
+        /* Keep previous slide-in styles */
+        position: fixed;
+        top: 80px; /* Match header height */
+        right: -100%;
+        width: 80%; 
+        max-width: 300px; /* Add a max-width */
+        background: white;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+        flex-direction: column;
+        padding: 30px 20px;
+        transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); /* Only transition right */
+        border-radius: 0; /* Remove corner radius */
+        height: calc(100vh - 80px);
+        z-index: 1000;
+        display: flex; /* Use flex for layout */
+        align-items: flex-start; /* Align items left */
+    }
+    
+    #nav-links.active {
+        right: 0;
+    }
+    
+    /* Bar animation for active state (X shape) */
+    #mobile-menu.active .bar:nth-child(1) {
+        top: calc(50% - 1.5px); /* Move to center */
+        transform: rotate(45deg);
+    }
+    
+    #mobile-menu.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    
+    #mobile-menu.active .bar:nth-child(3) {
+        top: calc(50% - 1.5px); /* Move to center */
+        transform: rotate(-45deg);
+    }
+    
+    /* Stack nav items vertically */
+    nav ul {
+        flex-direction: column;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+    
+    nav ul li {
+        margin: 0;
+        width: 100%;
+        border-bottom: 1px solid #eee;
+    }
+    
+    nav ul li:last-child {
+        border-bottom: none;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 15px 0; /* Add padding for easier tapping */
+        width: 100%;
+        color: var(--dark);
+    }
+
+    nav ul li a:hover {
+        color: var(--primary);
+        background-color: #f9f9f9;
+    }
+
+    .login-button {
+        margin-top: 20px;
+        width: 100%;
+        text-align: center;
+    }
+}
+
 @media (max-width: 768px) {
     .container {
         padding: 0 15px;
@@ -739,61 +926,7 @@ footer {
     cursor: not-allowed;
 }
 
-/* Additional Styling for Service Provider Page */
-.provider-hero {
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    z-index: 1;
-}
-
-
-    .provider-hero::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: -1;
-    }
-
-    .provider-hero h2, .provider-hero p {
-        color: #fff;
-    }
-
-    .provider-hero .cta-button {
-        background: var(--primary);
-        color: #fff;
-        border: none;
-        padding: 12px 30px;
-        border-radius: 50px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: var(--transition);
-    }
-
-    .provider-hero .cta-button:hover {
-        background: var(--primary-dark);
-    }
-
-    .provider-hero .cta-button:active {
-        transform: translateY(0);
-    }
-
-    .provider-hero .cta-button:focus {
-        outline: none;
-    }
-
-    .provider-hero .cta-button:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-    }
-
-    /* How It Works Section */
+/* How It Works Section */
 .how-it-works {
     padding: 80px 0;
     background: white;
@@ -1347,26 +1480,515 @@ footer ul li a:hover {
     right: -5px;
 }
 
-/* Enhance apply button */
-.submit-btn {
-    position: relative;
-    overflow: hidden;
+/* Hide class */
+.hide {
+    display: none !important;
 }
 
-.submit-btn::before {
-    content: '';
+.header-a {
+    all: unset;
+    cursor: pointer;
+}
+
+/* Hero background image improvements */
+.provider-hero {
+    background-size: cover;
+    background-position: center;
+}
+
+/* Worker image container responsiveness */
+.worker-img {
+    width: 100%;
+    position: relative;
+    margin-bottom: 30px; /* Ensure space for the success badge */
+}
+
+.worker-img img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.5s ease;
+}
+
+/* Success badge positioning fix for smaller screens */
+.success-badge {
+    position: absolute;
+    bottom: -20px;
+    right: -10px;
+    width: auto;
+    max-width: 80%;
+    background: white;
+    padding: 12px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1;
+}
+
+/* Testimonial author images */
+.author-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+/* Media query adjustments for tablets */
+@media (max-width: 992px) {
+    #estimate-income .container {
+      flex-direction: column;
+    }
+    
+    .worker-img {
+      max-width: 600px;
+      margin: 0 auto 50px;
+    }
+    
+    .success-badge {
+      bottom: -15px;
+      right: 0;
+      max-width: 70%;
+      padding: 10px;
+    }
+    
+    .testimonial-author {
+      flex-wrap: wrap;
+    }
+}
+
+/* Media query adjustments for mobile */
+@media (max-width: 576px) {
+    .worker-img {
+      max-width: 100%;
+    }
+    
+    .success-badge {
+      bottom: -20px;
+      right: 50%;
+      transform: translateX(50%);
+      max-width: 80%;
+      justify-content: center;
+    }
+    
+    .author-img {
+      width: 50px;
+      height: 50px;
+    }
+    
+    /* Ensure testimonial images align properly on mobile */
+    .testimonial-author {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .author-img {
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+}
+
+/* Maintain aspect ratio for embedded content */
+.responsive-embed {
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.responsive-embed iframe,
+.responsive-embed object,
+.responsive-embed embed {
     position: absolute;
     top: 0;
-    left: -100%;
+    left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: 0.5s;
 }
 
-.submit-btn:hover::before {
-    left: 100%;
+/* Mobile Responsive Fixes - Add these to the end of your CSS file */
+
+@media (max-width: 425px) {
+    /* General container fixes */
+    .container {
+      padding: 0 10px;
+      width: 100%;
+      overflow-x: hidden;
+    }
+    
+    /* Header adjustments */
+    header {
+      height: 70px;
+      padding: 10px 15px;
+    }
+    
+    header h1 {
+      font-size: 22px;
+    }
+    
+    /* Fix hero section spacing */
+    .provider-hero {
+      padding: 60px 15px;
+      min-height: 50vh;
+    }
+    
+    .provider-hero h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+    
+    .provider-hero p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    
+    /* Make CTA buttons properly sized for touch */
+    .cta-button {
+      padding: 14px 25px;
+      font-size: 16px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Income estimator section adjustments */
+    #estimate-income {
+      padding: 50px 0;
+    }
+    
+    #estimate-income .container {
+      gap: 30px;
+    }
+    
+    .worker-img {
+      margin-bottom: 40px;
+    }
+    
+    .estimate-calc h2 {
+      font-size: 26px;
+    }
+    
+    .estimate-calc h3 {
+      font-size: 18px;
+    }
+    
+    /* Calculator adjustment for small screens */
+    .calculator-card {
+      padding: 20px 15px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group select, 
+    .form-group input[type="text"],
+    .form-group input[type="tel"],
+    .form-group input[type="email"],
+    .form-group input[type="number"],
+    .form-group textarea {
+      padding: 12px 15px;
+      font-size: 16px;
+      min-height: 48px; /* Touch-friendly size */
+    }
+    
+    /* Make range inputs more usable on small screens */
+    .range-container input[type="range"] {
+      height: 10px; /* Slightly thicker for easier touch */
+    }
+    
+    .range-container input[type="range"]::-webkit-slider-thumb {
+      width: 28px;
+      height: 28px;
+    }
+    
+    /* Income results display */
+    .income-results {
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .income-box {
+      padding: 15px;
+    }
+    
+    /* Benefits section adjustments */
+    .benefits {
+      padding: 50px 0;
+    }
+    
+    .benefits h2 {
+      font-size: 26px;
+      margin-bottom: 30px;
+    }
+    
+    .benefit-card {
+      padding: 20px 15px;
+    }
+    
+    .benefit-title {
+      font-size: 20px;
+    }
+    
+    /* How it works section */
+    .how-it-works {
+      padding: 50px 0;
+    }
+    
+    .how-it-works h2 {
+      font-size: 26px;
+    }
+    
+    .steps {
+      margin-top: 30px;
+    }
+    
+    /* Testimonials adjustments */
+    .testimonials {
+      padding: 50px 0;
+    }
+    
+    .testimonials h2 {
+      font-size: 26px;
+    }
+    
+    .testimonial {
+      padding: 20px 15px;
+    }
+    
+    /* Fix testimonial quotes positioning */
+    .testimonial-content::before {
+      font-size: 40px;
+      top: -15px;
+      left: -5px;
+    }
+    
+    .testimonial-content::after {
+      font-size: 40px;
+      bottom: -25px;
+      right: -5px;
+    }
+    
+    /* Apply now form adjustments */
+    .apply-now {
+      padding: 50px 0;
+    }
+    
+    .apply-now h2 {
+      font-size: 26px;
+    }
+    
+    .apply-now p {
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+    
+    .apply-form {
+      padding: 20px 15px;
+    }
+    
+    /* Success badge positioning fix */
+    .success-badge {
+      position: relative;
+      bottom: auto;
+      right: auto;
+      transform: translateY(-30px);
+      margin: 0 auto;
+      max-width: 90%;
+      z-index: 5;
+    }
+    
+    /* FAQ section adjustments */
+    .faq {
+      padding: 50px 0;
+    }
+    
+    .faq h2 {
+      font-size: 26px;
+    }
+    
+    .faq-question {
+      padding: 15px;
+    }
+    
+    .faq-question h3 {
+      font-size: 16px;
+      max-width: 85%; /* Prevent text overflow with toggle button */
+    }
+    
+    .faq-answer {
+      padding: 0 15px;
+    }
+    
+    .faq-item.active .faq-answer {
+      padding: 0 15px 15px;
+    }
+    
+    /* Footer adjustments */
+    footer {
+      padding: 40px 0 20px;
+    }
+    
+    footer ul {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    /* Fix mobile menu position */
+    #nav-links {
+      width: 85%;
+      max-width: 280px;
+    }
+    
+    /* Ensure buttons meet minimum tap target size */
+    .calculate-btn,
+    nav .login-button {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Fix mobile navigation touch targets */
+    nav ul li a {
+      padding: 15px 0;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+    }
+    
+    /* Prevent hero content overflow */
+    .provider-hero-content {
+      max-width: 100%;
+    }
+    
+    /* Fix form input spacing */
+    .form-row {
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    
+    /* Fix menu toggle positioning */
+    .menu-toggle {
+      height: 24px;
+      width: 30px;
+      margin-right: 5px;
+    }
+    
+    /* Eliminate horizontal scrolling */
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
+    }
+  }
+  
+  /* Extra small device fixes (320px) */
+  @media (max-width: 320px) {
+    header h1 {
+      font-size: 18px;
+    }
+    
+    .provider-hero h2 {
+      font-size: 22px;
+    }
+    
+    .provider-hero p {
+      font-size: 14px;
+    }
+    
+    .cta-button {
+      padding: 12px 20px;
+      font-size: 14px;
+    }
+    
+    .estimate-calc h2,
+    .benefits h2,
+    .how-it-works h2,
+    .testimonials h2,
+    .apply-now h2,
+    .faq h2 {
+      font-size: 22px;
+    }
+    
+    .estimate-calc h3 {
+      font-size: 16px;
+    }
+    
+    .benefit-title {
+      font-size: 18px;
+    }
+    
+    .step h3 {
+      font-size: 18px;
+    }
+    
+    /* Make form elements more compact */
+    .form-group label {
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+    
+    .form-group select, 
+    .form-group input[type="text"],
+    .form-group input[type="tel"],
+    .form-group input[type="email"],
+    .form-group input[type="number"],
+    .form-group textarea {
+      padding: 10px 12px;
+      font-size: 14px;
+    }
+  }
+
+.provider-hero {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                url('https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center 30%; /* Adjust the focal point of the image */
+    color: white;
+    text-align: center;
+    margin-top: 80px;
 }
+
+/* Adjust for smaller screens */
+@media (max-width: 768px) {
+    .provider-hero {
+        min-height: 50vh;  /* Reduce height slightly */
+        background-position: center 20%; /* Adjust focus to show the best part of the image */
+    }
+}
+
+@media (max-width: 480px) {
+    .provider-hero {
+        min-height: 40vh;
+        background-position: center 10%; /* Further fine-tune focus for mobile */
+    }
+}
+
+/* .range-container input[type="range"]::-webkit-slider-runnable-track {
+    height: 10px;
+} */
+
+/* .range-container input[type="range"]::-moz-range-track {
+    height: 10px;
+}
+
+.range-container input[type="range"]::-ms-track {
+    height: 10px;
+} */
+
+
 
 
 
